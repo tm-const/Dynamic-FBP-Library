@@ -152,24 +152,7 @@ $(window).on('load', function() {
     fbq('trackCustom', 'Calculator');
     gtag('event', 'conversion', {'send_to': 'AW-**'});
   })
-  const fbTotalSales = document.getElementById('totalSales');
-  fbTotalSales && fbTotalSales.addEventListener('input', () => {
-    fbq('trackCustom', 'Calculator');
-    gtag('event', 'conversion', {'send_to': 'AW-**'});
-  })
-
-  const fbSupplierExpenses =  document.getElementById('supplierExpenses');
-  fbSupplierExpenses && fbSupplierExpenses.addEventListener('input', () => {
-    fbq('trackCustom', 'Calculator');
-    gtag('event', 'conversion', {'send_to': 'AW-**'});
-  })
-
-  const fbChargebackRatio = document.getElementById('chargebackRatio');
-  fbChargebackRatio && fbChargebackRatio.addEventListener('change', () => {
-    fbq('trackCustom', 'Calculator');
-    gtag('event', 'conversion', {'send_to': 'AW-**'});
-  })
-
+  
   // --------------------------------------------
   // In this example, we will activate a ViewContent standard event on page load. When someone clicks "Add to Cart" button, we will activate an AddToCart standard event.
   // --------------------------------------------
@@ -560,12 +543,12 @@ $(window).on('load', function() {
     return Math.round(player.getCurrentTime());
   }
 
-	// --------------------------------------------
-	// Multi steps form -- PARSLY
-	// --------------------------------------------
-	// Resources:
-	// code.jquery.com/jquery-2.1.3.js
-	// cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.1/dist/parsley.js
+  // --------------------------------------------
+  // Multi steps form -- PARSLY
+  // --------------------------------------------
+  // Resources:
+  // code.jquery.com/jquery-2.1.3.js
+  // cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.1/dist/parsley.js
   var $sections = $('.form-section');
 
   function navigateTo(index) {
