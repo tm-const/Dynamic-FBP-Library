@@ -1,0 +1,63 @@
+<!-- PARSLY -->
+<style type="text/css">
+.form-section {
+  padding-left: 15px;
+  border-left: 2px solid #FF851B;
+  display: none;
+}
+.form-section.current {
+  display: inherit;
+}
+.btn-info, .btn-default {
+  margin-top: 10px;
+}
+html.codepen body {
+  margin: 1em;
+}
+</style>
+<form class="demo-form">
+  <div class="form-section">
+    <label for="firstname">First Name:</label>
+    <input type="text" class="form-control" name="firstname" required="">
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" class="form-control" name="lastname" required="">
+  </div>
+
+  <div class="form-section">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" name="email" required="">
+  </div>
+
+  <div class="form-section">
+    <label for="color">Favorite color:</label>
+    <input type="text" class="form-control" name="color" required="">
+  </div>
+
+  <div class="form-navigation">
+    <button type="button" class="previous btn btn-info pull-left">&lt; Previous</button>
+    <button type="button" class="next btn btn-info pull-right">Next &gt;</button>
+    <input type="submit" class="btn btn-default pull-right">
+    <span class="clearfix"></span>
+  </div>
+</form>
+
+<!-- LEAVE INPUT -->
+<input type="text" id="sometext" onfocusout="myFunction()">
+
+<!-- VALIDATE INPUT EMAIL -->
+<form id="myform">
+   <input type="email" id="email"
+       pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" size="30" required>
+   <!-- OR -->
+	<input type="email" id="email" size="30" required>
+   <button type="button">Validate!</button>
+</form>
+
+<!-- VALIDATE INPUT PHONE -->
+<form id="myform">
+<label for="field">Required, us phone number: </label>
+<input class="left" id="field" name="field">
+<br/>
+<input type="submit" value="Validate!">
+</form>

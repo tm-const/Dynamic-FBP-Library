@@ -559,4 +559,124 @@ $(window).on('load', function() {
   function cleanTime() {
     return Math.round(player.getCurrentTime());
   }
+
+	// --------------------------------------------
+	// Multi steps form -- PARSLY
+	// --------------------------------------------
+	// Resources:
+	// code.jquery.com/jquery-2.1.3.js
+	// cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.1/dist/parsley.js
+  var $sections = $('.form-section');
+
+  function navigateTo(index) {
+    // Mark the current section with the class 'current'
+    $sections
+      .removeClass('current')
+      .eq(index)
+        .addClass('current');
+    // Show only the navigation buttons that make sense for the current section:
+    $('.form-navigation .previous').toggle(index > 0);
+    var atTheEnd = index >= $sections.length - 1;
+    $('.form-navigation .next').toggle(!atTheEnd);
+    $('.form-navigation [type=submit]').toggle(atTheEnd);
+  }
+
+  function curIndex() {
+    // Return the current index by looking at which section has the class 'current'
+    return $sections.index($sections.filter('.current'));
+  }
+
+  // Previous button is easy, just go back
+  $('.form-navigation .previous').click(function() {
+    navigateTo(curIndex() - 1);
+  });
+
+  // Next button goes forward iff current block validates
+  $('.form-navigation .next').click(function() {
+    $('.demo-form').parsley().whenValidate({
+      group: 'block-' + curIndex()
+    }).done(function() {
+      navigateTo(curIndex() + 1);
+    });
+  });
+
+  // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
+  $sections.each(function(index, section) {
+    $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+  });
+  navigateTo(0); // Start at the beginning
+
+  // --------------------------------------------
+  // Call a function after leaving input field -- LEAVE INPUT
+  // --------------------------------------------
+  function exitField() {
+      var x = document.getElementById("elmnt");
+      console.log(x.value);
+  }
+  // OR
+  $("input[name="input_email"]").focusout(function(){
+      alert("I left the field");
+  });
+  // OR
+  $("#input_email").focusout(function(){
+    alert("I left the field");
+  });
+
+  // --------------------------------------------
+  // Validating email addresses -- VALIDATE INPUT EMAIL 
+  // --------------------------------------------
+  // Requirements:
+  // cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js
+  // cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js
+
+  // Validation Methods:
+  // required – Makes the element required.
+  // remote – Requests a resource to check the element for validity.
+  // minlength – Makes the element require a given minimum length.
+  // maxlength – Makes the element require a given maximum length.
+  // rangelength – Makes the element require a given value range.
+  // min – Makes the element require a given minimum.
+  // max – Makes the element require a given maximum.
+  // range – Makes the element require a given value range.
+  // step – Makes the element require a given step.
+  // email – Makes the element require a valid email
+  // url – Makes the element require a valid url
+  // date – Makes the element require a date.
+  // dateISO – Makes the element require an ISO date.
+  // number – Makes the element require a decimal number.
+  // digits – Makes the element require digits only.
+  // equalTo – Requires the element to be the same as another one
+  // ADDON Features:---------------------------------------------
+  // accept – Makes a file upload accept only specified mime-types.
+  // creditcard – Makes the element require a credit card number.
+  // extension – Makes the element require a certain file extension.
+  // phoneUS – Validate for valid US phone number.
+  // require_from_group – Ensures a given number of fields in a group are complete.
+  var form = $( "#myform" );
+  form.validate();
+  $( "button" ).click(function() {
+    console.log( "Valid: " + form.valid() );
+  });
+
+  // --------------------------------------------
+  // Validating email addresses -- VALIDATE INPUT PHONE
+  // --------------------------------------------
+  // Requirements:
+  // <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+  // <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  // <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  // <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+  });
+  $( "#myform" ).validate({
+    rules: {
+      field: {
+        required: true,
+        phoneUS: true
+      }
+    }
+  });
+
 });
