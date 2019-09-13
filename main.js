@@ -459,11 +459,11 @@ $(window).on('load', function() {
   // <div id='player'></div>
 
   // <script async>
-  //   var tag = document.createElement('script');
+    // var tag = document.createElement('script');
    
-  //   tag.src = 'https://www.youtube.com/iframe_api';
-  //   var firstScriptTag = document.getElementsByTagName('script')[0];
-  //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // tag.src = 'https://www.youtube.com/iframe_api';
+    // var firstScriptTag = document.getElementsByTagName('script')[0];
+    // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   // </script>
 
   //set video values
@@ -662,4 +662,62 @@ $(window).on('load', function() {
     }
   });
 
+  // --------------------------------------------
+  // Calculate Scroll Percentage
+  // --------------------------------------------
+  function amountscrolled(){
+      var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
+      var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
+      var trackLength = winheight
+      var pctScrolled = Math.floor(scrollTop/trackLength * 10 *2) // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
+      console.log(pctScrolled + '% scrolled')
+      if ( pctScrolled >= 50) {
+        console.log("FBQ - Facebook Pixel Fire Here Demo")
+      }
+  }
+
+  window.addEventListener("scroll", function(){
+      amountscrolled()
+  }, false)
+
 });
+
+
+
+// Refernce Vimeo API:
+// https://github.com/vimeo/player.js/blob/master/README.md#getduration-promisenumber-error
+
+var iframe = document.querySelector('iframe');
+var player = new Vimeo.Player(iframe);
+
+player.on('play', function() {
+
+  var timesRun = 0;
+  var interval = setInterval(function(){
+    player.getDuration().then(function(duration) {
+        player.getCurrentTime().then(function(seconds) {
+
+          if (seconds <= duration) {
+            // seconds = the current playback position
+            let ioTime = Math.trunc(seconds);
+            if (ioTime == 5) {
+              console.log("Fire here at: " + Math.trunc(seconds) +" seconds");
+            }
+            console.log(seconds);
+          }
+
+          // Stops interval - if timesRun equals duration count
+          timesRun += 1;
+          if(timesRun === duration){
+            console.log("End Video")
+            clearInterval(interval);
+          }
+        }).catch(function(error) {
+          // an error occurred
+        });
+    }).catch(function(error) {
+        // an error occurred
+    });
+  }, 1000);
+
+console.log('played the video!');
