@@ -666,35 +666,32 @@ $(window).on('load', function() {
   // Calculate Scroll Percentage
   // --------------------------------------------
   function amountscrolled(){
-      var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
-      var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
-      var trackLength = winheight
-      var pctScrolled = Math.floor(scrollTop/trackLength * 10 *2) // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
-      console.log(pctScrolled + '% scrolled')
-      if ( pctScrolled >= 50) {
-        console.log("FBQ - Facebook Pixel Fire Here Demo")
-      }
+    var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
+    var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
+    var trackLength = winheight
+    var pctScrolled = Math.floor(scrollTop/trackLength * 10 *2) // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
+    console.log(pctScrolled + '% scrolled')
+    if ( pctScrolled >= 50) {
+      console.log("FBQ - Facebook Pixel Fire Here Demo")
+    }
   }
 
   window.addEventListener("scroll", function(){
       amountscrolled()
   }, false)
 
-});
+  // *----------------------------------------
+  // Refernce Vimeo API:
+  // https://github.com/vimeo/player.js/blob/master/README.md#getduration-promisenumber-error
+  // *----------------------------------------
+  var iframe = document.querySelector('iframe');
+  var player = new Vimeo.Player(iframe);
 
+  player.on('play', function() {
 
-
-// Refernce Vimeo API:
-// https://github.com/vimeo/player.js/blob/master/README.md#getduration-promisenumber-error
-
-var iframe = document.querySelector('iframe');
-var player = new Vimeo.Player(iframe);
-
-player.on('play', function() {
-
-  var timesRun = 0;
-  var interval = setInterval(function(){
-    player.getDuration().then(function(duration) {
+    var timesRun = 0;
+    var interval = setInterval(function(){
+      player.getDuration().then(function(duration) {
         player.getCurrentTime().then(function(seconds) {
 
           if (seconds <= duration) {
@@ -715,9 +712,44 @@ player.on('play', function() {
         }).catch(function(error) {
           // an error occurred
         });
-    }).catch(function(error) {
-        // an error occurred
-    });
-  }, 1000);
+      }).catch(function(error) {
+          // an error occurred
+      });
+    }, 1000);
 
-console.log('played the video!');
+    console.log('played the video!');
+  };
+
+  // *----------------------------------------
+  // WebinarJAM HTML 5 Video Duration Tracking
+  // *----------------------------------------
+  document.getElementById("user_start_broadcast_overlay").addEventListener("click", function() {
+    setInterval(function(){ 
+      let innerTXTT = document.querySelector('.vjs-current-time-display .vjs-control-text');
+      innerTXTT.innerText = innerTXTT.innerText.replace("Current Time","");
+      let vid = document.querySelector(".vjs-current-time-display").innerText;
+
+      vid = vid.replace(/:/g,''); // remove ":" from string
+
+      // Tracking time settings
+      let toNumbersSaw50Pct = '03000';
+      let toNumbersSawCTA = '05000';
+
+      // Current video Duration
+      let st = vid.trim();
+
+      // Tracking execution conditions
+      if (st === toNumbersSaw50Pct ) {
+        console.log("Fire At: 0:30:00");
+        // fbq('trackCustom', 'Saw50Pct');
+      }
+
+      if (st === toNumbersSawCTA ) {
+        console.log("Fire At: 0:50:00");
+        // fbq('trackCustom', 'SawCTA');
+      }
+
+    }, 1000);
+  });
+
+});
