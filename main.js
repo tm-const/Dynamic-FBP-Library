@@ -753,3 +753,47 @@ $(window).on('load', function() {
   });
 
 });
+
+// *----------------------------------------
+// Facebook VIdeo API : Track Video Duration
+// *----------------------------------------
+// <script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : 'APP-ID',
+    xfbml      : true,
+    version    : 'v3.2'
+  });
+  var my_video_player;
+  FB.Event.subscribe('xfbml.ready', function(msg) {
+    if (msg.type === 'video') {
+      my_video_player = msg.instance;
+    }
+    var myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
+      var fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
+      console.log("Started Playing - Full Video Duration:" + fullVideoDuration + " " + "minutes")
+      var interval = setInterval(function(){
+        const time = new Date(null);
+        time.setSeconds( my_video_player.getCurrentPosition() );
+        let minutes = time.getMinutes() + "" +time.getSeconds();
+        if (minutes == 100) {
+          // Event here
+        }
+        if (minutes == 130) {
+          // Event here
+        }
+        if(minutes == 190){
+          clearInterval(interval);
+        }
+      }, 1000);
+    });
+  });
+};
+// </script>
+// <div id="fb-root"></div>
+// <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+// <div  
+//   class="fb-video" 
+//   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/519037781971118/" 
+//   data-width="500"
+//   data-allowfullscreen="true"></div>
