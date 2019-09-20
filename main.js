@@ -752,67 +752,74 @@ $(window).on('load', function() {
     }, 1000);
   });
 
-});
-
-// *----------------------------------------
-// Facebook VIdeo API : Track Video Duration
-// *----------------------------------------
-// <script>
+  // *----------------------------------------
+  // Facebook VIdeo API : Track Video Duration
+  // *----------------------------------------
+  // <script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '807733419557863',
       xfbml      : true,
       version    : 'v3.2'
     });
+
     var my_video_player;
+
     FB.Event.subscribe('xfbml.ready', function(msg) {
+
       if (msg.type === 'video') {
         my_video_player = msg.instance;
       }
+
       var myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
+
         const fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
+
         var interval = setInterval(function(){
 
           const time = new Date(null);
           time.setSeconds( my_video_player.getCurrentPosition() );
           let minutes = time.getMinutes() + "" +time.getSeconds();
-          console.log(minutes);
-          if (minutes == 5) {
-            console.log("Thanks for watching!")
-          }
+
           if (minutes == 100) {
-            fbq('trackCustom', 'Viewed50');
+            // Add pixel here
           }
           if (minutes == 130) {
-            fbq('trackCustom', 'SawCTA');
+            // Add pixel here
           }
-
-          if(minutes == 190){
+          if (minutes == 190) {
             clearInterval(interval);
           }
+
           let myEventHandler = my_video_player.subscribe('paused', function(e) {
             clearInterval(interval);
           });
+
         }, 1000);
+
       });
+
     });
+
   };
-// </script>
-// <style type="text/css">
-//   .elCustomJS_code {
-//     display: -webkit-box;      
-//     display: -moz-box;         
-//     display: -ms-flexbox;      
-//     display: -webkit-flex;     
-//     display: flex;             
-//     justify-content: center;
-//   }
-// </style>
-// <div id="fb-root"></div>
-// <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-// <div  
-//   class="fb-video" 
-//   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/519037781971118/" 
-//   data-width="900"
-//   data-allowfullscreen="true"
-//   data-controls="false"></div>
+  // </script>
+  // <style type="text/css">
+  //   .elCustomJS_code {
+  //     display: -webkit-box;      
+  //     display: -moz-box;         
+  //     display: -ms-flexbox;      
+  //     display: -webkit-flex;     
+  //     display: flex;             
+  //     justify-content: center;
+  //   }
+  // </style>
+  // <div id="fb-root"></div>
+  // <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+  // <div  
+  //   class="fb-video" 
+  //   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/519037781971118/" 
+  //   data-width="900"
+  //   data-allowfullscreen="true"
+  //   data-controls="false"></div>
+
+});
