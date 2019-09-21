@@ -769,6 +769,7 @@ $(window).on('load', function() {
 
       if (msg.type === 'video') {
         my_video_player = msg.instance;
+        my_video_player.unmute(); // Unmute video on play
       }
 
       var myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
