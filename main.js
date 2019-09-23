@@ -756,53 +756,41 @@ $(window).on('load', function() {
   // Facebook VIdeo API : Track Video Duration
   // *----------------------------------------
   // <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '807733419557863',
-      xfbml      : true,
-      version    : 'v3.2'
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : 'APP-ID-Number',
+    xfbml      : true,
+    version    : 'v3.2'
+  });
+  let my_video_player;
+  FB.Event.subscribe('xfbml.ready', function(msg) {
+    if (msg.type === 'video') {
+      my_video_player = msg.instance;
+    }
+    my_video_player.play();
+    my_video_player.unmute();
+    let myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
+      const fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
+      let interval = setInterval(function(){
+        const time = new Date(null);
+        time.setSeconds( my_video_player.getCurrentPosition() );
+        let minutes = time.getMinutes() + "" +time.getSeconds();
+        if (minutes == 1650) {
+          fbq('trackCustom', 'Viewed50');
+        }
+        if (minutes == 260) {
+          fbq('trackCustom', 'SawCTA');
+        }
+        if (minutes == 3259) {
+          clearInterval(interval);
+        }
+        let myEventHandler = my_video_player.subscribe('paused', function(e) {
+          clearInterval(interval);
+        });
+      }, 1000);
     });
-
-    var my_video_player;
-
-    FB.Event.subscribe('xfbml.ready', function(msg) {
-
-      if (msg.type === 'video') {
-        my_video_player = msg.instance;
-        my_video_player.unmute(); // Unmute video on play
-      }
-
-      var myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
-
-        const fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
-
-        var interval = setInterval(function(){
-
-          const time = new Date(null);
-          time.setSeconds( my_video_player.getCurrentPosition() );
-          let minutes = time.getMinutes() + "" +time.getSeconds();
-
-          if (minutes == 100) {
-            // Add pixel here
-          }
-          if (minutes == 130) {
-            // Add pixel here
-          }
-          if (minutes == 190) {
-            clearInterval(interval);
-          }
-
-          let myEventHandler = my_video_player.subscribe('paused', function(e) {
-            clearInterval(interval);
-          });
-
-        }, 1000);
-
-      });
-
-    });
-
-  };
+  });
+};
   // </script>
   // <style type="text/css">
   //   .elCustomJS_code {
@@ -818,7 +806,7 @@ $(window).on('load', function() {
   // <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
   // <div style="background:url('https://scontent-sea1-1.xx.fbcdn.net/v/t15.5256-10/p180x540/67687689_2431646303622375_1399409441501085696_n.jpg?_nc_cat=106&_nc_oc=AQlmC3FvXXoGu3YCjbg6C-eaJe3FsPeV4OGx1nEKmdI8ZrSF2DdOTRiYMpwPsypZuMo&_nc_ht=scontent-sea1-1.xx&oh=91ff32a11d0e572bc741b03f457c7414&oe=5DEFCA45');background-size:cover;background-position: center;background-repeat: no-repeat;width:900px;" 
   //   class="fb-video" 
-  //   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/519037781971118/" 
+  //   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/Video-ID/" 
   //   data-width="900"
   //   data-allowfullscreen="true"
   //   data-controls="false"></div>
