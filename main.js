@@ -811,4 +811,39 @@ window.fbAsyncInit = function() {
   //   data-allowfullscreen="true"
   //   data-controls="false"></div>
 
+
+  
+  // *----------------------------------------
+  // Wistia VIdeo API : Track Video Duration
+  // *----------------------------------------
+
+  // <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+  // <div class="wistia_embed wistia_async_VIDEO-ID autoPlay=true" style="width:640px;height:360px;margin:0 auto;background:url('https://embedwistia-a.akamaihd.net/deliveries/8c91fe5b1a7a01652d06cde6463c31dbb5245857.jpg');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
+  // <script>
+
+  window._wq = window._wq || [];
+  
+  // target our video by the first 3 characters of the hashed ID
+  _wq.push({ id: "VIDEO-ID", onReady: function(video) {
+
+    video.bind('secondchange', function(s) {
+      
+      if (s === 10) {
+        // Insert code to do something amazing here
+        console.log("We just reached " + 10 + " Seconds!");
+      }
+      
+      if (s === 720) {
+        // Insert code to do something amazing here
+        console.log("We just reached " + 12 + " Minutes!");
+      }
+      
+    });
+    
+    wistiaPlaylist.currentVideo().play()
+  }});
+
+  // </script>
+
+  
 });
