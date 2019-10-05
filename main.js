@@ -845,5 +845,15 @@ window.fbAsyncInit = function() {
 
   // </script>
 
+  // *----------------------------------------
+  // Localstorage : Store Username is check if user has visited the website
+  // *----------------------------------------
+
+  if(localStorage.getItem("username")) {
+    console.log(localStorage.getItem("username"))
+      // Fire code here
+  } else {
+    // Fire code here
+  }  
   
 });
