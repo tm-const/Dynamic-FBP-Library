@@ -812,6 +812,136 @@ window.fbAsyncInit = function() {
   //   data-controls="false"></div>
 
 
+  // *----------------------------------------
+  // Facebook VIdeo API : Track Video Duration - *******Extended - Button events with timer and local storage*****
+  // *----------------------------------------
+
+  // <style type="text/css">
+  // .elCustomJS_code{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;justify-content:center}a#undefined-838, div#tmp_button-30909 {display:none}a#undefined-838{width: 90%;max-width:500px;}.activate-here{display:block!important}.none-activate-here{display:none!important}.timerone,.timertwo{display:none}.container-s{color:#333;text-align:center;margin:0 auto}.container-s h1{font-weight:400;color:red}.container-s li{display:inline-block;font-size:.8em;list-style-type:none;padding:10px 1em;text-transform:uppercase;color:red}.container-s li span{display:block;font-size:3rem;color:red}</style>
+  // <script>
+
+    if(localStorage.getItem("username")) {
+      console.log(localStorage.getItem("username"))
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : 'APP-ID-HERE',
+          xfbml      : true,
+          version    : 'v3.2'
+        });
+        let my_video_player;
+        FB.Event.subscribe('xfbml.ready', function(msg) {
+          if (msg.type === 'video') {
+            my_video_player = msg.instance;
+          }
+          my_video_player.play();
+          my_video_player.unmute();
+          // Local Storage
+          var localStorage = window.localStorage;
+          // button element selector
+          const element = document.querySelector("a#undefined-838");
+          const elementLast = document.querySelector("#tmp_button-30909");
+
+          let myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
+
+            const fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
+            console.log("Started playing!")
+
+            var elem = document.querySelector('.fb-video.fb_iframe_widget.fb_iframe_widget_fluid_desktop');
+            var elemVideo = document.querySelector('.fb-video.fb_iframe_widget.fb_iframe_widget_fluid_desktop');
+
+            elemVideo.style.pointerEvents = "none";
+
+            let interval = setInterval(function(){
+              const time = new Date(null);
+              time.setSeconds( my_video_player.getCurrentPosition() );
+              let minutes = time.getMinutes() + "" +time.getSeconds();
+              console.log(minutes);
+              // Last button till end of video
+              if (minutes == 5110) {elementLast.classList.add('activate-here');}
+              if (minutes == 2760) {fbq('trackCustom', 'Viewed50');}
+              if (minutes == 5355) {fbq('trackCustom', 'SawCTA');}
+              if (minutes == 12957) {clearInterval(interval);}
+              let myEventHandler = my_video_player.subscribe('paused', function(e) {
+                clearInterval(interval);
+                console.log("Stopped")
+              });
+            }, 1000);
+
+          });
+        });
+      };
+    } else {
+      var name = 'return visitor';
+      localStorage.setItem('username', name);
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : 'APP-ID-HERE',
+          xfbml      : true,
+          version    : 'v3.2'
+        });
+        let my_video_player;
+        FB.Event.subscribe('xfbml.ready', function(msg) {
+          if (msg.type === 'video') {
+            my_video_player = msg.instance;
+          }
+          my_video_player.play();
+          my_video_player.unmute();
+          // Local Storage
+          var localStorage = window.localStorage;
+          // button element selector
+          const element = document.querySelector("a#undefined-838");
+          const elementLast = document.querySelector("#tmp_button-30909");
+
+          let myEventHandlerStartPlay = my_video_player.subscribe('startedPlaying', function(e) {
+            const fullVideoDuration = Math.floor( my_video_player.getDuration()  / 60 );
+            console.log("Started playing!")
+
+            var elem = document.querySelector('.fb-video.fb_iframe_widget.fb_iframe_widget_fluid_desktop');
+
+            var elemVideo = document.querySelector('.fb-video.fb_iframe_widget.fb_iframe_widget_fluid_desktop');
+
+            elemVideo.style.pointerEvents = "none";
+            let interval = setInterval(function(){
+              const time = new Date(null);
+              time.setSeconds( my_video_player.getCurrentPosition() );
+              let minutes = time.getMinutes() + "" +time.getSeconds();
+              console.log(minutes);
+
+              if(minutes==1010){element.classList.add('activate-here');let timerSecond=document.querySelector(".timerone");timerSecond.style.display="block";function startTimer(duration,display){var timer=duration,minutes,seconds;setInterval(function(){minutes=parseInt(timer/60,10)
+              seconds=parseInt(timer%60,10);minutes=minutes<10?"0"+minutes:minutes;seconds=seconds<10?"0"+seconds:seconds;display.innerHTML="<div class='container-s'><ul><li><span id='minutes'>"+minutes+"</span>Minutes</li><li><span id='seconds'>"+seconds+"</span>Seconds</li></ul></div>";if(--timer<0){timer=duration}},1000)}
+              var fiveMinutes=60*5,display=document.querySelector('#time');startTimer(fiveMinutes,display)}
+              if(minutes==1510){element.classList.remove('activate-here');timerSecond=document.querySelector(".timerone");timerSecond.style.display="none"}
+
+              if(minutes==3318){element.classList.add('activate-here');let timerSecond=document.querySelector(".timertwo");timerSecond.style.display="block";function startTimer(duration,display){var timer=duration,minutes,seconds;setInterval(function(){minutes=parseInt(timer/60,10)
+              seconds=parseInt(timer%60,10);minutes=minutes<10?"0"+minutes:minutes;seconds=seconds<10?"0"+seconds:seconds;display.innerHTML="<div class='container-s'><ul><li><span id='minutes'>"+minutes+"</span>Minutes</li><li><span id='seconds'>"+seconds+"</span>Seconds</li></ul></div>";if(--timer<0){timer=duration}},1000)}
+              var fiveMinutes=60*5,display=document.querySelector('#time-two');startTimer(fiveMinutes,display)}
+              if(minutes==3818){element.classList.remove('activate-here');timerSecond=document.querySelector(".timertwo");timerSecond.style.display="none"}
+
+              // Last button till end of video
+              if (minutes == 5110) {elementLast.classList.add('activate-here');}
+              if (minutes == 2760) {fbq('trackCustom', 'Viewed50');}
+              if (minutes == 5355) {fbq('trackCustom', 'SawCTA');}
+              // Stop Interval
+              if (minutes == 5359) {clearInterval(interval);}
+              let myEventHandler = my_video_player.subscribe('paused', function(e) {
+                clearInterval(interval);
+                console.log("Stopped")
+              });
+            }, 1000);
+          });
+        });
+      };
+    }
+  //   </script>
+  // <div id="fb-root"></div>
+  // <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+  // <div style="background:url('https://scontent.fmia1-2.fna.fbcdn.net/v/t15.5256-10/71549121_865675297166990_5554042353301323776_n.jpg?_nc_cat=110&_nc_oc=AQkCnKNxl5GZ3DnHaMWB1GFeCxJpHrdR89anscr0pi7zrKSwPwWeWQOQIO4RPMuAqAB5JcTGcMdJ5G8dj1l_gB3E&_nc_ht=scontent.fmia1-2.fna&oh=a14b438c1f976188921d53c7b943358d&oe=5DF0F4E8');background-size:cover;background-position: center;background-repeat: no-repeat;width:900px;"
+  //   class="fb-video"
+  //   data-href="https://www.facebook.com/FCIFranchiseOpp/videos/865667317167788/"
+  //   data-width="900"
+  //   data-allowfullscreen="true"
+  //   data-controls="false"
+  // ></div>
   
   // *----------------------------------------
   // Wistia VIdeo API : Track Video Duration
@@ -843,6 +973,127 @@ window.fbAsyncInit = function() {
     wistiaPlaylist.currentVideo().play()
   }});
 
+  // </script> 
+  
+  
+  // *----------------------------------------
+  // Wistia VIdeo API : Track Video Duration *******Extended - Button events with timer and local storage*****
+  // *----------------------------------------
+  
+  // <style type="text/css">
+  // .elCustomJS_code{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;justify-content:center}a#undefined-838, div#tmp_button-30909 {display:none}a#undefined-838{width: 90%;max-width:500px;}.activate-here{display:block!important}.none-activate-here{display:none!important}#time,#timertwo{display:none}.container-s{color:#333;text-align:center;margin:0 auto}.container-s h1{font-weight:400;color:red}.container-s li{display:inline-block;font-size:.8em;list-style-type:none;padding:10px 1em;text-transform:uppercase;color:red}.container-s li span{display:block;font-size:3rem;color:red}@media all and (max-width:680px) {div#wistia-vsqmydiash-1 {width:100% !important;}}</style>
+
+  // <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_embed wistia_async_ID-HERE autoPlay=true" style="width:640px;height:360px;margin:0 auto;background:url('IMAGE-HERE.jpg');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
+  // <script>
+  window._wq = window._wq || [];
+
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.innerHTML = "<div class='container-s'><ul style='padding:0!important;margin:0;'><li><span id='minutes'>" + minutes + "</span>Minutes</li><li><span id='seconds'>" + seconds + "</span>Seconds</li></ul></div>";
+
+      if (--timer < 0) {
+          timer = duration;
+      }
+    }, 1000);
+  }
+
+  // target our video by the first 3 characters of the hashed ID
+  _wq.push({ id: "ID-HERE", onReady: function(video) {
+
+    if(!localStorage.getItem("username")) {
+
+      var name = 'return visitor';
+        localStorage.setItem('username', name);
+        video.bind('secondchange', function(s) {
+
+          console.log(s);
+
+        // button element selector
+        const element = document.querySelector("a#undefined-838");
+        const elementLast = document.querySelector("#tmp_button-30909");
+
+        // Timer selector
+        let timerOne = document.querySelector("#time");
+        let timerSecond= document.querySelector("#timetwo");
+
+        if (s === 600) {
+
+          console.log("First button fire here" + s)
+            element.classList.add('activate-here');
+
+          let fiveMinutes = 60 * 5,
+          display = document.querySelector('#time');
+          startTimer(fiveMinutes, display);
+
+            timerOne.style.display = "block";
+
+        }
+        if (s === 900) {
+            element.classList.remove('activate-here');
+
+          let fiveMinutes = 60 * 5,
+          display = document.querySelector('#time');
+
+            timerOne.style.display = "none"   
+        }
+
+        if (s === 1998) {
+          console.log("Second button fire here" + s)
+            elementLast.classList.add('activate-here');
+
+          let fiveMinutes = 60 * 5,
+          display = document.querySelector('#timetwo');
+          startTimer(fiveMinutes, display);
+
+            timerSecond.style.display = "block";
+        }
+        if (s === 2298) {
+            elementLast.classList.remove('activate-here');
+
+          let fiveMinutes = 60 * 5,
+          display = document.querySelector('#timetwo');
+
+            timerSecond.style.display = "none"   
+        }
+
+              // Last button till end of video
+              if (s === 2760) {console.log("View pixel fire here" + s);fbq('trackCustom', 'Viewed50');}
+              if (s === 5110) {console.log("Button fire here" + s);elementLast.classList.add('activate-here');}
+              if (s === 5355) {console.log("CTA pixel fire here" + s);fbq('trackCustom', 'SawCTA');}
+
+        });
+
+        wistiaPlaylist.currentVideo().play();
+
+    } else {
+
+        console.log(localStorage.getItem("username"))
+
+        video.bind('secondchange', function(s) {
+
+          console.log(s);
+
+        // button element selector
+        const elementLast = document.querySelector("#tmp_button-30909");
+
+              // Last button till end of video
+              if (s === 2760) {console.log("View pixel fire here" + s);fbq('trackCustom', 'Viewed50');}
+              if (s === 5110) {console.log("Button fire here" + s);elementLast.classList.add('activate-here');}
+              if (s === 5355) {console.log("CTA pixel fire here" + s);fbq('trackCustom', 'SawCTA');}
+
+        });
+
+        wistiaPlaylist.currentVideo().play();
+
+    }
+  }});
   // </script>
 
   // *----------------------------------------
