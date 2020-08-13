@@ -916,3 +916,45 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
     });
 
   });
+
+// *----------------------------------------
+// Refernce Vimeo API:
+// https://github.com/vimeo/player.js/blob/master/README.md#getduration-promisenumber-error
+// *----------------------------------------
+
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><style>#height-of-video{width:100%;max-width:840px;height:470px}@media all and (max-width:767px){#height-of-video{height:470px}}@media all and (max-width:567px){#height-of-video{height:300px!important}}@media all and (max-width:487px){#height-of-video{height:280px!important}}@media all and (max-width:378px){#height-of-video{height:220px!important}}</style><div id="height-of-video" class="wistia_embed wistia_async_7uonrw96p9 autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
+<script>
+window._wq = window._wq || [];
+// target our video by the first 3 characters of the hashed ID
+_wq.push({ id: "7uonrw96p9", onReady: function(video) {
+ video.bind('secondchange', function(s) {
+   console.log("Seconds:" + s);
+   if (s === 491) {
+     // Insert code to do something amazing here
+     fbq('trackCustom', 'Viewed25', {content_name: 'forte strong, bac'});
+   }
+   if (s === 950) {
+     // Insert code to do something amazing here
+     fbq('trackCustom', 'Viewed50', {content_name: 'forte strong, bac'});
+   }
+   if (s === 1140) {
+     // Insert code to do something amazing here
+     fbq('trackCustom', 'SawCTA', {content_name: 'forte strong, bac'});
+   }
+    if (s === 1405) {
+     // Insert code to do something amazing here
+     fbq('trackCustom', 'Viewed75', {content_name: 'forte strong, bac'});
+   }
+   if (s === 1886) {
+     // Insert code to do something amazing here
+     fbq('trackCustom', 'Viewed100', {content_name: 'forte strong, bac'});
+   }
+ });
+ wistiaPlaylist.currentVideo().play()
+}});
+</script>
+
+
+
+
+
