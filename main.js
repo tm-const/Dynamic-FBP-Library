@@ -928,26 +928,28 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
 <div id="height-of-video" class="wistia_embed wistia_async_WISTIA_ID_HERE autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
 <script>
   window._wq = window._wq || [];
-  _wq.push({ id: "WISTIA_ID_HERE", onReady: function(video) {
+  _wq.push({ id: "zlljan5es0", onReady: function(video) {
 
 
-
-   let contet_name = 'chase diamond';
-   let total = 4127;
+  let videoFullDuration = '02:04:33';
+   let contet_name = 'chase diamond, vsl';
    let sawCTA = 1477;
    let attended = 60;
 
-String.prototype.toHHMMSS = function () {
-    var sec_num = parseInt(this, 10); // don't forget the second param
-    var hours   = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    String.prototype.toHHMMSS = function () {
+      var sec_num = parseInt(this, 10); // don't forget the second param
+      var hours   = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+      var seconds = sec_num - (hours * 3600) - (minutes * 60);
 
-    if (hours   < 10) {hours   = "0"+hours;}
-    if (minutes < 10) {minutes = "0"+minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-    return hours+':'+minutes+':'+seconds;
-}
+      if (hours   < 10) {hours   = "0"+hours;}
+      if (minutes < 10) {minutes = "0"+minutes;}
+      if (seconds < 10) {seconds = "0"+seconds;}
+      return hours+':'+minutes+':'+seconds;
+    }
+    let videoFullDuration = '02:04:33';
+    let a = videoFullDuration.split(':');
+    let total = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
 
    let Viewed25 = total / 4;
    let Viewed50 = total / 2;
@@ -962,6 +964,7 @@ String.prototype.toHHMMSS = function () {
    let numCTA=sawCTA.toString();
    let numATT=attended.toString();
 
+  console.log('Total Video Duration : ' + videoFullDuration);
   console.log('Viewed_25 will trigger at : ' + num25.toHHMMSS());
   console.log('Viewed_50 will trigger at : ' + num50.toHHMMSS());
   console.log('Viewed_75 will trigger at : ' + num75.toHHMMSS());
@@ -971,34 +974,32 @@ String.prototype.toHHMMSS = function () {
   console.log('Attended will trigger at : ' + numATT.toHHMMSS());
   console.log('-------------------------' );
 
-
   video.bind('secondchange', function(s) {
    console.log("Seconds:" + s);
-    
     if (s === v25) {
       fbq('trackCustom', 'Viewed25', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     if (s === v50) {
       fbq('trackCustom', 'Viewed50', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     if (s === v75) {
       fbq('trackCustom', 'Viewed75', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     if (s === v95) {
       fbq('trackCustom', 'Viewed95', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     // CTAs
-    if (s === SawCTA) {
+    if (s === sawCTA) {
     fbq('trackCustom', 'SawCTA', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     if (s === attended) {
     fbq('trackCustom', 'Attended', 
-        {content_name: 'traffic pilot, vsl'});
+        {content_name: contet_name});
     }
     // CTAs
   });
