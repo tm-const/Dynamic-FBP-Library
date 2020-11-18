@@ -927,11 +927,17 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
 <style>#height-of-video{width:100%;max-width:840px;height:470px}@media all and (max-width:767px){#height-of-video{height:470px}}@media all and (max-width:567px){#height-of-video{height:300px!important}}@media all and (max-width:487px){#height-of-video{height:280px!important}}@media all and (max-width:378px){#height-of-video{height:220px!important}}</style>
 <div id="height-of-video" class="wistia_embed wistia_async_WISTIA_ID_HERE autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
 <script>
+
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+<style>#height-of-video{width:100%;max-width:840px;height:470px}@media all and (max-width:767px){#height-of-video{height:470px}}@media all and (max-width:567px){#height-of-video{height:300px!important}}@media all and (max-width:487px){#height-of-video{height:280px!important}}@media all and (max-width:378px){#height-of-video{height:220px!important}}</style>
+<div id="height-of-video" class="wistia_embed wistia_async_zlljan5es0 autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script>
   window._wq = window._wq || [];
   _wq.push({ id: "zlljan5es0", onReady: function(video) {
 
 
-  let videoFullDuration = '02:04:33';
+  let videoFullDuration = '01:08:47';
    let contet_name = 'chase diamond, vsl';
    let sawCTA = '00:14:03';
    let attended = '00:0:60';
@@ -948,14 +954,9 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
       return hours+':'+minutes+':'+seconds;
     }
 
-
-    let videoFullDuration = '02:04:33';
-    let sawCTA = '00:14:03';
-    let attended = '00:0:60';
-
     let aF = videoFullDuration.split(':');
     let total = (+aF[0]) * 60 * 60 + (+aF[1]) * 60 + (+aF[2]);
-    
+
     let aCTA = sawCTA.split(':');
     let sCTA = (+aCTA[0]) * 60 * 60 + (+aCTA[1]) * 60 + (+aCTA[2]);
 
@@ -1016,10 +1017,9 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
     }
     // CTAs
   });
-  wistiaPlaylist.currentVideo().play()
-  }
- });
-</script>
+  
+  }});
+</script></script>
 
 
 
