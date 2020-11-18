@@ -933,8 +933,8 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
 
   let videoFullDuration = '02:04:33';
    let contet_name = 'chase diamond, vsl';
-   let sawCTA = 1477;
-   let attended = 60;
+   let sawCTA = '00:14:03';
+   let attended = '00:0:60';
 
     String.prototype.toHHMMSS = function () {
       var sec_num = parseInt(this, 10); // don't forget the second param
@@ -947,9 +947,20 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
       if (seconds < 10) {seconds = "0"+seconds;}
       return hours+':'+minutes+':'+seconds;
     }
+
+
     let videoFullDuration = '02:04:33';
-    let a = videoFullDuration.split(':');
-    let total = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+    let sawCTA = '00:14:03';
+    let attended = '00:0:60';
+
+    let aF = videoFullDuration.split(':');
+    let total = (+aF[0]) * 60 * 60 + (+aF[1]) * 60 + (+aF[2]);
+    
+    let aCTA = sawCTA.split(':');
+    let sCTA = (+aCTA[0]) * 60 * 60 + (+aCTA[1]) * 60 + (+aCTA[2]);
+
+    let aTTD = attended.split(':');
+    let aTD = (+aTTD[0]) * 60 * 60 + (+aTTD[1]) * 60 + (+aTTD[2]);
 
    let Viewed25 = total / 4;
    let Viewed50 = total / 2;
@@ -961,9 +972,10 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
    let v50=Math.floor(Viewed50);let num50=v50.toString();
    let v75=Math.floor(Viewed75);let num75=v75.toString();
    let v95=Math.floor(Viewed95);let num95=v95.toString();
-   let numCTA=sawCTA.toString();
-   let numATT=attended.toString();
+   let numCTA=sCTA.toString();
+   let numATT=aTD.toString();
 
+  console.log('------------Start-------------' );
   console.log('Total Video Duration : ' + videoFullDuration);
   console.log('Viewed_25 will trigger at : ' + num25.toHHMMSS());
   console.log('Viewed_50 will trigger at : ' + num50.toHHMMSS());
@@ -972,10 +984,11 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
   console.log('-------------------------' );
   console.log('SawCTA will trigger at : ' + numCTA.toHHMMSS());
   console.log('Attended will trigger at : ' + numATT.toHHMMSS());
-  console.log('-------------------------' );
+  console.log('------------ END -------------' );
 
   video.bind('secondchange', function(s) {
-   console.log("Seconds:" + s);
+    let secPass = s.toString();
+   console.log("Time Passed:" + secPass.toHHMMSS());
     if (s === v25) {
       fbq('trackCustom', 'Viewed25', 
         {content_name: contet_name});
@@ -1004,7 +1017,8 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
     // CTAs
   });
   wistiaPlaylist.currentVideo().play()
-  }});
+  }
+ });
 </script>
 
 
