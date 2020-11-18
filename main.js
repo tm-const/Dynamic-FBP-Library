@@ -922,38 +922,89 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
 // https://github.com/vimeo/player.js/blob/master/README.md#getduration-promisenumber-error
 // *----------------------------------------
 
-<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><style>#height-of-video{width:100%;max-width:840px;height:470px}@media all and (max-width:767px){#height-of-video{height:470px}}@media all and (max-width:567px){#height-of-video{height:300px!important}}@media all and (max-width:487px){#height-of-video{height:280px!important}}@media all and (max-width:378px){#height-of-video{height:220px!important}}</style><div id="height-of-video" class="wistia_embed wistia_async_7uonrw96p9 autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
-<script>
-window._wq = window._wq || [];
-// target our video by the first 3 characters of the hashed ID
-_wq.push({ id: "7uonrw96p9", onReady: function(video) {
- video.bind('secondchange', function(s) {
-   console.log("Seconds:" + s);
-   if (s === 491) {
-     // Insert code to do something amazing here
-     fbq('trackCustom', 'Viewed25', {content_name: 'forte strong, bac'});
-   }
-   if (s === 950) {
-     // Insert code to do something amazing here
-     fbq('trackCustom', 'Viewed50', {content_name: 'forte strong, bac'});
-   }
-   if (s === 1140) {
-     // Insert code to do something amazing here
-     fbq('trackCustom', 'SawCTA', {content_name: 'forte strong, bac'});
-   }
-    if (s === 1405) {
-     // Insert code to do something amazing here
-     fbq('trackCustom', 'Viewed75', {content_name: 'forte strong, bac'});
-   }
-   if (s === 1886) {
-     // Insert code to do something amazing here
-     fbq('trackCustom', 'Viewed100', {content_name: 'forte strong, bac'});
-   }
- });
- wistiaPlaylist.currentVideo().play()
-}});
-</script>
 
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+<style>#height-of-video{width:100%;max-width:840px;height:470px}@media all and (max-width:767px){#height-of-video{height:470px}}@media all and (max-width:567px){#height-of-video{height:300px!important}}@media all and (max-width:487px){#height-of-video{height:280px!important}}@media all and (max-width:378px){#height-of-video{height:220px!important}}</style>
+<div id="height-of-video" class="wistia_embed wistia_async_WISTIA_ID_HERE autoPlay=true" style="margin:0 auto;background:url('');background-position:center;background-size:cover;background-repeat:no-repeat;">&nbsp;</div>
+<script>
+  window._wq = window._wq || [];
+  _wq.push({ id: "WISTIA_ID_HERE", onReady: function(video) {
+
+
+
+   let contet_name = 'chase diamond';
+   let total = 4127;
+   let sawCTA = 1477;
+   let attended = 60;
+
+String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds;
+}
+
+   let Viewed25 = total / 4;
+   let Viewed50 = total / 2;
+   let Viewed75 = Viewed25 * 3;
+   let n99Percent1 = total*.95;
+   let n99Percent2 = total - n99Percent1;
+   let Viewed95 =  total - n99Percent2;
+   let v25=Math.floor(Viewed25);let num25=v25.toString();
+   let v50=Math.floor(Viewed50);let num50=v50.toString();
+   let v75=Math.floor(Viewed75);let num75=v75.toString();
+   let v95=Math.floor(Viewed95);let num95=v95.toString();
+   let numCTA=sawCTA.toString();
+   let numATT=attended.toString();
+
+  console.log('Viewed_25 will trigger at : ' + num25.toHHMMSS());
+  console.log('Viewed_50 will trigger at : ' + num50.toHHMMSS());
+  console.log('Viewed_75 will trigger at : ' + num75.toHHMMSS());
+  console.log('Viewed_95 will trigger at : ' + num95.toHHMMSS());
+  console.log('-------------------------' );
+  console.log('SawCTA will trigger at : ' + numCTA.toHHMMSS());
+  console.log('Attended will trigger at : ' + numATT.toHHMMSS());
+  console.log('-------------------------' );
+
+
+  video.bind('secondchange', function(s) {
+   console.log("Seconds:" + s);
+    
+    if (s === v25) {
+      fbq('trackCustom', 'Viewed25', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    if (s === v50) {
+      fbq('trackCustom', 'Viewed50', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    if (s === v75) {
+      fbq('trackCustom', 'Viewed75', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    if (s === v95) {
+      fbq('trackCustom', 'Viewed95', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    // CTAs
+    if (s === SawCTA) {
+    fbq('trackCustom', 'SawCTA', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    if (s === attended) {
+    fbq('trackCustom', 'Attended', 
+        {content_name: 'traffic pilot, vsl'});
+    }
+    // CTAs
+  });
+  wistiaPlaylist.currentVideo().play()
+  }});
+</script>
 
 
 
