@@ -1022,5 +1022,58 @@ var executeWhenReachedPagePercentage = function(percentage, callback) {
 </script></script>
 
 
+// *----------------------------------------
+// Graph API Version:
+// https://github.com/facebook/facebook-nodejs-business-sdk
+// *----------------------------------------
+  
+const bizSdk = require('facebook-nodejs-business-sdk');
 
+const accessToken = '<VALID_ACCESS_TOKEN>';
+const accountId = 'act_<AD_ACCOUNT_ID>';
 
+const FacebookAdsApi = bizSdk.FacebookAdsApi.init(accessToken);
+const AdAccount = bizSdk.AdAccount;
+const Campaign = bizSdk.Campaign;
+
+const account = new AdAccount(accountId);
+var campaigns;
+
+account.read([AdAccount.Fields.name])
+    .then((account) => {
+        return account.getCampaigns(
+            [
+                Campaign.Fields.created_time,
+                Campaign.Fields.name,
+                Campaign.Fields.account_id,
+                Campaign.Fields.budget_remaining,
+                Campaign.Fields.buying_type,
+                Campaign.Fields.daily_budget,
+                Campaign.Fields.status
+            ], {
+                limit: 10
+            }) // fields array and params
+    })
+    .then((result) => {
+
+        campaigns = result
+
+        var values = []
+
+        campaigns.forEach(function(campaign) {
+            // perform some operation on a value;
+            values.push({
+                    username:         campaign.created_time,
+                    name:             campaign.name,
+                    status:           campaign.status,
+                    id:               campaign.account_id,
+                    remaining_budget: campaign.budget_remaining,
+                    buying_type:      campaign.buying_type,
+                    daily_budget:     campaign.daily_budget
+                }
+            );
+        });
+
+        console.table(values);
+
+    }).catch(console.error);
