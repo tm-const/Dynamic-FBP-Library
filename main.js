@@ -1077,3 +1077,18 @@ account.read([AdAccount.Fields.name])
         console.table(values);
 
     }).catch(console.error);
+
+
+
+
+// Click And fire once:
+
+document.querySelector("input#shipping_address_1").addEventListener("click", handler);
+
+// handler function
+function handler(e) {
+  // remove this handler
+  e.target.removeEventListener(e.type, arguments.callee);
+
+  alert("You'll only see this once!");
+}
